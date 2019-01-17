@@ -60,4 +60,10 @@ public class Sending01010101Activity extends SerialPortActivity {
 			}
 		}
 	}
+
+	@Override
+	protected void onDestroy() {
+
+		super.onDestroy();
+	}
 }

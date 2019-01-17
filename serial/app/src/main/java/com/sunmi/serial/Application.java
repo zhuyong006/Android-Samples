@@ -52,7 +52,7 @@ public class Application extends android.app.Application {
 
 	public void closeSerialPort() {
 		if (mSerialPort != null) {
-			mSerialPort.close();
+			mSerialPort.SetGadgeAdb();
 			mSerialPort = null;
 		}
 	}

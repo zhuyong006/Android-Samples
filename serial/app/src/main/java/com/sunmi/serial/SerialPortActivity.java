@@ -31,7 +31,7 @@ import android_serialport_api.SerialPort;
 public abstract class SerialPortActivity extends Activity {
 
 	protected Application mApplication;
-	protected SerialPort mSerialPort;
+	static SerialPort mSerialPort;
 	protected OutputStream mOutputStream;
 	private InputStream mInputStream;
 	private ReadThread mReadThread;

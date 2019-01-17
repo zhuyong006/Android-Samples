@@ -1,14 +1,16 @@
 package com.sunmi.serial;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.TextView;
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
+import java.io.IOException;
+
+import android_serialport_api.SerialPort;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +18,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        try {
+            SerialPort.SetGadgeAcm();
+        }catch (IOException e){
+            DisplayError(R.string.error_security_acm);
+            e.printStackTrace();
+        }
 
         final Button buttonSetup = (Button)findViewById(R.id.ButtonSetup);
         buttonSetup.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +70,28 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.finish();
             }
         });
+    }
+
+    private void DisplayError(int resourceId) {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle("Error");
+        b.setMessage(resourceId);
+        b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                MainActivity.this.finish();
+            }
+        });
+        b.show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        try{
+            SerialPort.SetGadgeAdb();
+        }catch (IOException e){
+            DisplayError(R.string.error_security_acm);
+            e.printStackTrace();
+        }
     }
 
     /**

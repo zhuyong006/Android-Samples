@@ -22,6 +22,8 @@ See the License for the specific language governing permissions and
 limitations under the License.\n
 	</string>
     <string name="error_configuration">Please configure your serial port first.</string>
+    <string name="error_security_acm">You do not have read/write permission to the Acm
+		Files.</string>
     <string name="error_security">You do not have read/write permission to the serial
 		port.</string>
     <string name="error_unknown">The serial port can not be opened for an unknown
