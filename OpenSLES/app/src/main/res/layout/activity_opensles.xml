@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_opensles"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.sunmi.opensles.OpenSLES">
+
+    <Button
+        android:text="Init"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Init"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/Pause"
+        android:layout_marginTop="0dp" />
+
+    <Button
+        android:text="Start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Start"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/Pause"
+        android:layout_marginTop="127dp" />
+
+    <Button
+        android:text="Pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Pause"
+        android:layout_below="@+id/Start"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="88dp" />
+
+</RelativeLayout>
