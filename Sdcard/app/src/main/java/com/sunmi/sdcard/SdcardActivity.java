@@ -1,13 +1,13 @@
 package com.sunmi.sdcard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class SdcardActivity extends AppCompatActivity {
 
     ListView listView;
     TextView textView;
@@ -27,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
     File currentParent;
     //记录当前目录路径下的所有文件的文件数组
     File[] currentFiles;
+    //调转到EntryActivity的intent
+    Intent intent;
+    //目标文件
+    String TargetFile;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +54,20 @@ public class MainActivity extends AppCompatActivity {
                                     long arg3) {
                 // TODO Auto-generated method stub
                 //用户单击了文件，直接返回，不做任何处理
-                if(currentFiles[arg2].isFile())
-                    return;
+                if(currentFiles[arg2].isFile()) {
+                    Log.e("sdcard","File Path : " + currentFiles[arg2].getAbsolutePath());
+
+                    intent = new Intent();
+                    intent.setClass(SdcardActivity.this, EntryActivity.class);
+                    TargetFile = currentFiles[arg2].getAbsolutePath();
+                    intent.putExtra("target file",TargetFile);
+                    startActivity(intent);
+                    return ;
+                }
                 //获取用户单击的文件夹下的所有文件
                 File[] tmp = currentFiles[arg2].listFiles();
                 if(tmp == null || tmp.length == 0){
-                    Toast.makeText(MainActivity.this, "当前路径不可访问或该路径下没有文件",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SdcardActivity.this, "当前路径不可访问或该路径下没有文件",Toast.LENGTH_SHORT).show();
                 }
                 else{
                     //获取用户单击的列表项对应的文件夹，设为当前的父文件夹
