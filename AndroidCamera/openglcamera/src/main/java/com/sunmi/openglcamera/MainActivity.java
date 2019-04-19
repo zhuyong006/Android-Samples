@@ -54,10 +54,4 @@ public class MainActivity extends AppCompatActivity {
                     REQUEST_CODE);
         }
     }
-    public void clickText(View view) {
-        if (myGLSurfaceView.model ==2)
-            myGLSurfaceView.model=0;
-        else myGLSurfaceView.model++;
-        Toast.makeText(this,"Change Effect",Toast.LENGTH_SHORT).show();
-    }
 }
