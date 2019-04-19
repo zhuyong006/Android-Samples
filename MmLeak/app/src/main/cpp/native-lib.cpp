@@ -1,7 +1,7 @@
 #include <jni.h>
 #include <string>
-#include "leak_tracer/include/MemoryTrace.hpp"
 #include <fstream>
+#include "leak_tracer/include/MemoryTrace.hpp"
 
 #ifdef ANDROID
 
@@ -19,9 +19,14 @@
 #define ALOGD printf
 #define ALOGW printf
 #endif
+#ifdef __cplusplus
+extern "C"{
+#endif
+    void mem_leak(void);
+#ifdef __cplusplus
+};
+#endif
 
-
-char *mm = NULL;
 extern "C"
 jstring
 Java_com_sunmi_mmleak_MainActivity_NativeMmLeak(
@@ -29,17 +34,12 @@ Java_com_sunmi_mmleak_MainActivity_NativeMmLeak(
         jobject /* this */) {
     std::string hello = "Hello from C++";
     leaktracer::MemoryTrace::GetInstance().startMonitoringAllThreads();
-    mm = (char *)malloc(4096);
-    memset(mm,0x0,4096);
+    mem_leak();
     leaktracer::MemoryTrace::GetInstance().stopAllMonitoring();
 
-    std::ofstream out;
-    out.open("/data/leak.out", std::ios_base::out);
-    if (out.is_open()) {
-        leaktracer::MemoryTrace::GetInstance().writeLeaks(out);
-    } else {
-        ALOGE("Failed to write to \"leaks.out\"\n");
-    }
+
+    leaktracer::MemoryTrace::GetInstance().writeLeaksToFile("/data/leak.out");
+
 
     return env->NewStringUTF(hello.c_str());
 }

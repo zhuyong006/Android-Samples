@@ -36,7 +36,7 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
     }
 
     public native boolean initCascade(String path);
-    public native void faceDetect(byte[] data, int srcFrameWidth, int srcFrameHeight,long addr);
+    public native void faceDetect(long addr);
     //OpenGLES相关
     private int srcFrameWidth  = 640;// 源视频帧宽/高
     private int srcFrameHeight = 480;
@@ -381,10 +381,15 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
         Mat image = new Mat((int)(srcFrameHeight*1.5),srcFrameWidth, CvType.CV_8UC1);
         image.put(0,0,data);
         Mat bitmap = new Mat();
+        Mat gray = new Mat();
         long addr = image.getNativeObjAddr();
-        faceDetect(data,srcFrameWidth,srcFrameHeight,addr);
+        faceDetect(addr);
+//        Log.e(TAG,"image -- width :" + image.width() + "," + "height :" + image.height());
 
+//        Imgproc.cvtColor(image , gray, Imgproc.COLOR_YUV420sp2GRAY);//转换颜色空间
+//        Log.e(TAG,"gray -- width :" + gray.width() + "," + "height :" + gray.height());
         Imgproc.cvtColor(image , bitmap, Imgproc.COLOR_YUV420sp2RGBA);//转换颜色空间
+        Log.e(TAG,"bitmap -- width :" + bitmap.width() + "," + "height :" + bitmap.height());
 
         Utils.matToBitmap(bitmap,dstBitmap);
         image.release();

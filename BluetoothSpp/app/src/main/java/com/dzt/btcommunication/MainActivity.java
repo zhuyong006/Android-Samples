@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 		FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
 		deviceFragment = new DeviceFragment();
 		chatFragment = new ChatFragment();
+        adapter.addFragment(chatFragment, "对话列表");
 		adapter.addFragment(deviceFragment, "设备列表");
-		adapter.addFragment(chatFragment, "对话列表");
 		viewPager.setAdapter(adapter);
 		tabLayout2.setupWithViewPager(viewPager);
 

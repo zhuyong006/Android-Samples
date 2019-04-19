@@ -20,7 +20,8 @@ Java_com_sunmi_openglcamera_MyGLSurfaceView_initCascade(JNIEnv *env, jobject ins
     ALOGE("Java_sunmi_opencv_camera_MainActivity_stringFromC");
     const char *cascadePath = env->GetStringUTFChars(path_,0);
 
-    cascade = new CascadeClassifier(cascadePath);
+    //cascade = new CascadeClassifier(cascadePath);
+    cascade = new CascadeClassifier("/data/haarcascade_eye_tree_eyeglasses.xml");
     if(!cascade)
     {
         ALOGE("CascadeClassifier Creat Failed\n");
@@ -33,32 +34,22 @@ Java_com_sunmi_openglcamera_MyGLSurfaceView_initCascade(JNIEnv *env, jobject ins
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_sunmi_openglcamera_MyGLSurfaceView_faceDetect(JNIEnv *env, jobject instance,
-                                                       jbyteArray data_, jint srcFrameWidth,
-                                                       jint srcFrameHeight,jlong addr){
+Java_com_sunmi_openglcamera_MyGLSurfaceView_faceDetect(JNIEnv *env, jobject instance, jlong addr) {
 
     // TODO
+    //取到Java端的Mat对象
+    Mat obj = *(Mat *)addr;
     Mat gray;
-    jbyte *data = env->GetByteArrayElements(data_, NULL);
-    Mat image = *(Mat *)addr;
-
     ALOGE("face detect enter E\n");
 
-    cvtColor(image,gray,COLOR_YUV420p2GRAY);
+    cvtColor(obj,gray,COLOR_YUV420sp2GRAY);
     std::vector<Rect> rects;
-    cascade->detectMultiScale(gray,rects,1.1,5,0,Size(10,10),Size(300,300));
-    if(rects.empty()) {
-        env->ReleaseByteArrayElements(data_, data, 0);
-        return ;
-    }
-
+    cascade->detectMultiScale(gray,rects,2,5,0,Size(10,10),Size(300,300));
+    if(rects.empty()) return;
     for(int i=0;i<rects.size();i++)
     {
         ALOGE("found face\n");
-       // rectangle(image,rects[i],Scalar(255,0,0),2,8,0);
+        rectangle(obj,rects[i],Scalar(255,0,0),2,8,0);
     }
-    env->ReleaseByteArrayElements(data_, data, 0);
-
-    return ;
-
+    return;
 }
