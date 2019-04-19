@@ -27,6 +27,11 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Callback, PreviewCallback{
+    static{
+        System.loadLibrary("native-lib");
+    }
+
+    public native String stringFromC();
     //OpenGLES相关
     private int srcFrameWidth  = 640;// 源视频帧宽/高
     private int srcFrameHeight = 480;
@@ -68,7 +73,7 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
     {
         super(context);
         getUiHandlerInterface=mainUiHandler;
-
+        stringFromC();
         //设置Renderer到GLSurfaceView
         setRenderer(new MyGL20Renderer());
         // 只有在绘制数据改变时才绘制view
@@ -147,7 +152,7 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
                     setFps[0]=previewFpsRange.get(i)[0];
                 }
             }
-            params.setPreviewFpsRange(setFps[0], setFps[1]);//15,30
+           // params.setPreviewFpsRange(setFps[0], setFps[1]);//15,30
             try
             {
                 params.setPreviewFormat(ImageFormat.NV21);

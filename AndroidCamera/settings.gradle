@@ -1,1 +1,2 @@
 include ':app', ':openglcamera'
+include ':opencv_sdk'
