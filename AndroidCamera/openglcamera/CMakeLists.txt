@@ -7,7 +7,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src/main/cpp/include)
 
 add_library(libopencv_java3 SHARED IMPORTED)
 set_target_properties(libopencv_java3 PROPERTIES IMPORTED_LOCATION
-            ${CMAKE_SOURCE_DIR}/libs/${ANDROID_ABI}/libopencv_java3.so)
+            ${CMAKE_SOURCE_DIR}/libs/${ANDROID_ABI}/libopencv_java4.so)
 
 add_library( # Sets the name of the library.
              native-lib
