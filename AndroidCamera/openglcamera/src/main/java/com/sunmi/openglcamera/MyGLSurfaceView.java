@@ -39,7 +39,7 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
     }
 
     public native boolean initCascade(String path);
-    public native void faceDetect(long addr);
+    public native void faceDetect(long src_addr,long dst_addr);
     //OpenGLES相关
     private int srcFrameWidth  = 640;// 源视频帧宽/高
     private int srcFrameHeight = 480;
@@ -393,26 +393,15 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
 //        Bitmap bitmap = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length, options);
 
         Mat image = new Mat((int)(srcFrameHeight*1.5),srcFrameWidth, CvType.CV_8UC1);
-        Mat gray = new Mat();
-        image.put(0,0,data);
-        Imgproc.cvtColor(image , gray, Imgproc.COLOR_YUV420sp2GRAY);//转换颜色空间
-        Core.rotate(gray,gray,Core.ROTATE_90_COUNTERCLOCKWISE);
-
-
         Mat bitmap = new Mat();
-        long addr = gray.getNativeObjAddr();
-        faceDetect(addr);
-
-        Imgproc.cvtColor(gray , bitmap, Imgproc.COLOR_GRAY2RGBA);//转换颜色空间
-
-        Core.rotate(bitmap,bitmap,Core.ROTATE_90_COUNTERCLOCKWISE);
-        Core.flip(bitmap,bitmap,0);
-
+        image.put(0,0,data);
+        Utils.bitmapToMat(dstBitmap,bitmap);
+        long src_addr = image.getNativeObjAddr();
+        long dst_addr = bitmap.getNativeObjAddr();
+        faceDetect(src_addr,dst_addr);
 
         Utils.matToBitmap(bitmap,dstBitmap);
-
         image.release();
-        bitmap.release();
         return dstBitmap;
     }
 
