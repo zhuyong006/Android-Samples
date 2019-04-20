@@ -43,27 +43,39 @@ Java_com_sunmi_openglcamera_MyGLSurfaceView_faceDetect(JNIEnv *env, jobject inst
     Mat src =   *(Mat *)src_addr;
     Mat bitmap = *(Mat *)dst_addr;
     Mat gray;
-    ALOGE("Face Detect");
+    //将原图像转换为bitmap格式
+    cvtColor(src ,bitmap, COLOR_YUV420sp2RGBA);
+
     //转换为灰度图像减少计算量
     cvtColor(src , gray, COLOR_YUV420sp2GRAY);
     //竖屏，需要对图像旋转90度，才能识别
     rotate(gray,gray,ROTATE_90_COUNTERCLOCKWISE);
 
+    //检测目标
     std::vector<Rect> rects;
     cascade->detectMultiScale(gray,rects,1.3,5,0,Size(10,10),Size(0,0));
-    if(rects.empty()) goto End;
+    //临时对象已经没用了，释放掉
+    gray.release();
+
+    //由于前置相机倒置，因此，如果是没有检测到目标，则垂直镜像后返回
+    if(rects.empty()) {
+        flip(bitmap,bitmap,1);
+        return;
+    }
+
+    /*如果检测到目标，由于是用的旋转后的灰度图像去检测，灰度图像的坐标就会和bitmap的坐标有90度的差异
+     * 无法直接画矩形，因此构造一个临时Mat对象，先把bitmap做90度翻转后，在翻转后的图像上做画，在这个
+     * 包含检测结果的图像上，再次翻转90度并镜像后就可以得到需要的图像了
+    */
+    Mat temp;
+    rotate(bitmap,temp,ROTATE_90_COUNTERCLOCKWISE);
     for(int i=0;i<rects.size();i++)
     {
-        ALOGE("found face\n");
-        rectangle(gray,rects[i],Scalar(255,0,0,0),2,8,0);
+        rectangle(temp,rects[i],Scalar(255.0,0),2,8,0);
     }
-End:
-    rotate(gray,gray,ROTATE_90_COUNTERCLOCKWISE);
-    //转换为bitmap的格式
-    cvtColor(gray , bitmap, COLOR_GRAY2RGBA);
+    rotate(temp,bitmap,ROTATE_90_COUNTERCLOCKWISE);
+    temp.release();
     flip(bitmap,bitmap,0);
-    ALOGE("ndk : width = %d,height = %d", bitmap.rows,bitmap.cols);
 
-    gray.release();
     return;
 }

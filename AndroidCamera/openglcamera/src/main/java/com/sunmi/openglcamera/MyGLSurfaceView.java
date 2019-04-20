@@ -53,8 +53,8 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
     private FloatBuffer squareVertices = null;
     private FloatBuffer coordVertices = null;
     private Bitmap dstBitmap=null;
-    //private String cascadeFileName = "haarcascade_eye_tree_eyeglasses.xml";
-    private String cascadeFileName = "lbpcascade_frontalface.xml";
+    private String cascadeFileName = "haarcascade_eye_tree_eyeglasses.xml";
+    //private String cascadeFileName = "lbpcascade_frontalface.xml";
     private static float squareVertices_[] = {
             -1.0f, -1.0f,0.0f,
             1.0f, -1.0f,0.0f,
