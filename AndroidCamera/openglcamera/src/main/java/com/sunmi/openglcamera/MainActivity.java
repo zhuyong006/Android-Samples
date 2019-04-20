@@ -2,6 +2,7 @@ package com.sunmi.openglcamera;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout previewLayout;
     private MyGLSurfaceView myGLSurfaceView;
     private TextView textView;
+    private int currentCameraId = MyGLSurfaceView.mCameraIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,5 +55,18 @@ public class MainActivity extends AppCompatActivity {
                             Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_CODE);
         }
+    }
+
+    public void onTextClick(View view) {
+        if(view.getId() == R.id.sample_text)
+        {
+            if(currentCameraId == Camera.CameraInfo.CAMERA_FACING_BACK) {
+                currentCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
+            }else{
+                currentCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
+            }
+            myGLSurfaceView.switchCamera(currentCameraId);
+        }
+
     }
 }

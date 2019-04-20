@@ -14,8 +14,11 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 
 import org.opencv.android.Utils;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import java.io.File;
@@ -50,6 +53,8 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
     private FloatBuffer squareVertices = null;
     private FloatBuffer coordVertices = null;
     private Bitmap dstBitmap=null;
+    //private String cascadeFileName = "haarcascade_eye_tree_eyeglasses.xml";
+    private String cascadeFileName = "lbpcascade_frontalface.xml";
     private static float squareVertices_[] = {
             -1.0f, -1.0f,0.0f,
             1.0f, -1.0f,0.0f,
@@ -64,7 +69,7 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
     };
 
     //Camera相关
-    private int mCameraIndex=Camera.CameraInfo.CAMERA_FACING_BACK;
+    public static  int mCameraIndex=Camera.CameraInfo.CAMERA_FACING_FRONT;
     private Camera camera;
     public Bitmap resultImg;
     private SurfaceHolder surfaceHolder;
@@ -78,7 +83,6 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
     {
         super(context);
         getUiHandlerInterface=mainUiHandler;
-
         try {
             dstPath = getCascadeDir(context);
         }catch (IOException ioe){
@@ -100,16 +104,22 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
         surfaceHolder.addCallback(this);
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
-
+    public void switchCamera(int id){
+        stopCamera();
+        startCamera(id);
+        mCameraIndex = id;
+    }
     private String getCascadeDir(Context context)throws IOException {
         InputStream input = getResources().openRawResource(R.raw.lbpcascade_frontalface);
         File cascadeDir = context.getDir("cascade", Context.MODE_PRIVATE);
-        File file = new File(cascadeDir.getAbsoluteFile(), "lbpcascade_frontalface.xml");
-        String dst = cascadeDir.getAbsoluteFile()+"lbpcascade_frontalface.xml";
+        File file = new File(cascadeDir.getAbsoluteFile(), cascadeFileName);
+        Log.e(TAG,cascadeDir.getAbsoluteFile().getAbsolutePath());
+        String dst = cascadeDir.getAbsoluteFile().getAbsolutePath()+"/"+cascadeFileName;
         FileOutputStream output = new FileOutputStream(file);
         byte[] buff = new byte[1024];
         int len = 0;
         while ((len = input.read(buff)) != -1) {
+            Log.e(TAG,"1111");
             output.write(buff, 0, len);
         }
 
@@ -197,9 +207,13 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
             try
             {
                 camera.setPreviewTexture(surfaceTexture);
+//                if(mCameraIndex == Camera.CameraInfo.CAMERA_FACING_FRONT)
+//                    camera.setDisplayOrientation(270);
+//                else
+//                    camera.setDisplayOrientation(90);
                 camera.startPreview();
                 camera.setPreviewCallback(this);
-                camera.setDisplayOrientation(90);
+
             }
             catch(Exception ex)
             {
@@ -210,7 +224,7 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
         }
     }
 
-    private void stopCamera() {
+        private void stopCamera() {
         if (camera != null){
             camera.setPreviewCallback(null);
             camera.stopPreview();
@@ -379,19 +393,24 @@ public class MyGLSurfaceView extends GLSurfaceView implements SurfaceHolder.Call
 //        Bitmap bitmap = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length, options);
 
         Mat image = new Mat((int)(srcFrameHeight*1.5),srcFrameWidth, CvType.CV_8UC1);
-        image.put(0,0,data);
-        Mat bitmap = new Mat();
         Mat gray = new Mat();
-        long addr = image.getNativeObjAddr();
-        faceDetect(addr);
-//        Log.e(TAG,"image -- width :" + image.width() + "," + "height :" + image.height());
+        image.put(0,0,data);
+        Imgproc.cvtColor(image , gray, Imgproc.COLOR_YUV420sp2GRAY);//转换颜色空间
+        Core.rotate(gray,gray,Core.ROTATE_90_COUNTERCLOCKWISE);
 
-//        Imgproc.cvtColor(image , gray, Imgproc.COLOR_YUV420sp2GRAY);//转换颜色空间
-//        Log.e(TAG,"gray -- width :" + gray.width() + "," + "height :" + gray.height());
-        Imgproc.cvtColor(image , bitmap, Imgproc.COLOR_YUV420sp2RGBA);//转换颜色空间
-        Log.e(TAG,"bitmap -- width :" + bitmap.width() + "," + "height :" + bitmap.height());
+
+        Mat bitmap = new Mat();
+        long addr = gray.getNativeObjAddr();
+        faceDetect(addr);
+
+        Imgproc.cvtColor(gray , bitmap, Imgproc.COLOR_GRAY2RGBA);//转换颜色空间
+
+        Core.rotate(bitmap,bitmap,Core.ROTATE_90_COUNTERCLOCKWISE);
+        Core.flip(bitmap,bitmap,0);
+
 
         Utils.matToBitmap(bitmap,dstBitmap);
+
         image.release();
         bitmap.release();
         return dstBitmap;
