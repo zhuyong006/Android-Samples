@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="图片人脸特征标记"/>
+
+    <Button
+        android:id="@+id/recognition_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="图片人脸识别"/>
+
+    <Button
+        android:id="@+id/arcRecognition_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="虹软图片人脸识别"/>
+
+    <Button
+        android:id="@+id/video_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="视频人脸特征标记"/>
+
+    <Button
+        android:id="@+id/video_detector_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="视频人脸检测"/>
+
+    <Button
+        android:id="@+id/video_detector_dnn_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="通过DNN视频人脸检测"/>
+
+    <Button
+        android:id="@+id/video_recognition_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="视频人脸同步识别"/>
+
+    <Button
+        android:id="@+id/video_recognition_asyn_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="视频人脸异步识别"/>
+
+    <Button
+        android:id="@+id/video_arc_recognition_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="虹软视频人脸同步识别"/>
+
+    <Button
+        android:id="@+id/video_arc_recognition_asyn_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="虹软视频人脸异步识别"/>
+
+    <Button
+        android:id="@+id/video_TF_obj_recognition_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TensorFlow视频同步物体识别"/>
+
+</LinearLayout>

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.guo.android_extend:android-extend:1.0.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/android-extend-1.0.1.aar/d97c2f3172a401f1387ecb05f573977e/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/android-extend-1.0.1.aar/d97c2f3172a401f1387ecb05f573977e/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.guo.android_extend/android-extend/1.0.1/4fa2650091fa1c4424066f23fbd2b89d9591f760/android-extend-1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

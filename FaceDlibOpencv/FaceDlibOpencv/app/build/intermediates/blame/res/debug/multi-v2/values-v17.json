@@ -1,0 +1,39 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\Project\\Android-Samples\\FaceDlibOpencv\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v17\\values-v17.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\62d50138c5885e37653bdf97d4dd340e\\res\\values-v17\\values-v17.xml",
+                    "from": {
+                        "startLines": "2,5,9,12,15,18,22,26,29,32,35,39,42,46",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,228,456,614,764,936,1164,1406,1577,1751,1920,2193,2393,2597",
+                        "endLines": "4,8,11,14,17,21,25,28,31,34,38,41,45,49",
+                        "endColumns": "12,12,12,12,12,12,12,12,12,12,12,12,12,12",
+                        "endOffsets": "223,451,609,759,931,1159,1401,1572,1746,1915,2188,2388,2592,2921"
+                    },
+                    "to": {
+                        "startLines": "8,11,15,18,21,24,28,32,35,38,41,45,48,52",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "364,537,765,923,1073,1245,1473,1715,1886,2060,2229,2502,2702,2906",
+                        "endLines": "10,14,17,20,23,27,31,34,37,40,44,47,51,55",
+                        "endColumns": "12,12,12,12,12,12,12,12,12,12,12,12,12,12",
+                        "endOffsets": "532,760,918,1068,1240,1468,1710,1881,2055,2224,2497,2697,2901,3230"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Administrator\\.gradle\\caches\\transforms-1\\files-1.1\\android-extend-1.0.1.aar\\d97c2f3172a401f1387ecb05f573977e\\res\\values-v17\\values-v17.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "7",
+                        "endColumns": "9",
+                        "endOffsets": "359"
+                    }
+                }
+            ]
+        }
+    ]
+}

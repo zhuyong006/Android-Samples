@@ -1,0 +1,6 @@
+D:/Project/Android-Samples/FaceDlibOpencv/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/native-lib.dir
+D:/Project/Android-Samples/FaceDlibOpencv/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Project/Android-Samples/FaceDlibOpencv/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+D:/Project/Android-Samples/FaceDlibOpencv/app/.externalNativeBuild/cmake/release/armeabi-v7a/dlib_build/CMakeFiles/dlib.dir
+D:/Project/Android-Samples/FaceDlibOpencv/app/.externalNativeBuild/cmake/release/armeabi-v7a/dlib_build/CMakeFiles/edit_cache.dir
+D:/Project/Android-Samples/FaceDlibOpencv/app/.externalNativeBuild/cmake/release/armeabi-v7a/dlib_build/CMakeFiles/rebuild_cache.dir

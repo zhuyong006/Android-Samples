@@ -1,0 +1,3 @@
+D:/Project/Android-Samples/FaceDlibOpencv/app/.externalNativeBuild/cmake/release/armeabi-v7a/dlib_build/cpp11_test_build/CMakeFiles/rebuild_cache.dir
+D:/Project/Android-Samples/FaceDlibOpencv/app/.externalNativeBuild/cmake/release/armeabi-v7a/dlib_build/cpp11_test_build/CMakeFiles/cpp11_test.dir
+D:/Project/Android-Samples/FaceDlibOpencv/app/.externalNativeBuild/cmake/release/armeabi-v7a/dlib_build/cpp11_test_build/CMakeFiles/edit_cache.dir
